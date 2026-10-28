@@ -1,0 +1,6 @@
+# Only needed for the optional desktop/command-line version (gui.py, python -m audiobook)
+-r requirements.txt
+pyttsx3>=2.90
+pydub>=0.25.1
+mutagen>=1.47.0
+audioop-lts>=0.2.1; python_version >= "3.13"

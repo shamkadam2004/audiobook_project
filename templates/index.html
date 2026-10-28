@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AudioBook - listen to your notes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Instrument+Sans:wght@400;500;600&family=Noto+Sans+Devanagari:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M7 9l5-5 5 5M4 20h16"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 4.5v15a1 1 0 0 0 1.5.86l12-7.5a1 1 0 0 0 0-1.72l-12-7.5A1 1 0 0 0 8 4.5z"/></symbol>
+    <symbol id="i-pause" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4.5" height="16" rx="1.2"/><rect x="13.5" y="4" width="4.5" height="16" rx="1.2"/></symbol>
+    <symbol id="i-stop" viewBox="0 0 24 24" fill="currentColor"><rect x="5.5" y="5.5" width="13" height="13" rx="2"/></symbol>
+    <symbol id="i-vol" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H3v6h3l5 4zM16 9a4 4 0 0 1 0 6"/></symbol>
+    <symbol id="i-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12a1 1 0 0 1 1 1v17l-7-4-7 4V4a1 1 0 0 1 1-1z"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></symbol>
+    <symbol id="i-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></symbol>
+  </defs>
+</svg>
+
+<header class="top">
+  <a class="brand" href="#top" aria-label="AudioBook home">
+    <span class="mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>AudioBook
+  </a>
+  <nav aria-label="Main">
+    <a href="#studio">Studio</a>
+    <a href="#how">How it works</a>
+    <a href="#about">About</a>
+  </nav>
+</header>
+
+<main id="top">
+
+<section class="hero">
+  <div class="hero-copy">
+    <h1>Your notes,<br>read aloud.</h1>
+    <p class="lead">Drop in a PDF or a photo of your notes. Choose English, Hindi or Marathi. Listen at up to 5&times; speed and bookmark where you stopped.</p>
+    <div class="cta">
+      <a class="btn primary" href="#studio">Start listening</a>
+      <a class="btn plain" href="#how">See how it works</a>
+    </div>
+  </div>
+
+  <div class="demo" aria-hidden="true">
+    <div class="sheet">
+      <p class="demo-line"><span class="w">An</span> <span class="w">audiobook</span> <span class="w">is</span> <span class="w">a</span> <span class="w">recording</span> <span class="w">of</span> <span class="w">a</span> <span class="w">book</span> <span class="w">being</span> <span class="w">read</span> <span class="w">aloud.</span></p>
+      <p class="demo-line dv" lang="hi"><span class="w">अपने</span> <span class="w">नोट्स</span> <span class="w">को</span> <span class="w">आवाज़</span> <span class="w">में</span> <span class="w">सुनें।</span></p>
+      <div class="demo-wave"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    </div>
+    <div class="sticker">5&times;</div>
+  </div>
+</section>
+
+<section id="studio" class="studio">
+  <div class="studio-head">
+    <h2>Studio</h2>
+    <p>Add your text on the left. Press a language on the right to translate it and start playing.</p>
+  </div>
+
+  <div class="console">
+    <!-- LEFT: source -->
+    <div class="source">
+      <label id="drop" class="drop" for="file">
+        <span class="drop-ic"><svg><use href="#i-up"/></svg></span>
+        <span class="drop-txt"><strong id="dropTitle">Drop a PDF or image here</strong><small>or click to choose a file. PDF, PNG, JPG</small></span>
+      </label>
+      <input id="file" type="file" accept=".pdf,.png,.jpg,.jpeg,.txt" hidden>
+
+      <label class="field" for="text">Text to read</label>
+      <textarea id="text" placeholder="Text from your file appears here. You can also type or paste your own."></textarea>
+
+      <div id="trans" class="trans" hidden>
+        <div class="field">Translation</div>
+        <div id="transText"></div>
+      </div>
+    </div>
+
+    <!-- RIGHT: player deck -->
+    <div class="deck">
+      <div class="deck-top">
+        <div class="seg langs" role="group" aria-label="Listen in">
+          <button class="lang on" data-lang="en">English</button>
+          <button class="lang" data-lang="hi" lang="hi">हिंदी</button>
+          <button class="lang" data-lang="mr" lang="mr">मराठी</button>
+        </div>
+        <div class="playing">Playing in <b id="playLang">English</b></div>
+      </div>
+
+      <p id="status" class="status" role="status"></p>
+
+      <div id="nowRead" class="now" aria-live="off"><span class="done"></span><span class="next">Your text appears here as it is read.</span></div>
+
+      <div id="eq" class="eq" aria-hidden="true"></div>
+
+      <div id="bar" class="bar" role="progressbar" aria-label="Progress"><i id="fill"></i></div>
+      <div class="pos"><span id="posL">0 chars</span><span id="posR">0 chars</span></div>
+
+      <div class="ctrl">
+        <button id="stopBtn" class="round" aria-label="Stop"><svg><use href="#i-stop"/></svg></button>
+        <button id="playBtn" class="round big" aria-label="Play or pause"><svg><use id="playIcon" href="#i-play"/></svg></button>
+        <button id="addBm" class="pillbtn" disabled><svg><use href="#i-mark"/></svg>Bookmark here</button>
+      </div>
+
+      <div class="row">
+        <div class="seg speeds" role="group" aria-label="Speed">
+          <button class="sp on" data-speed="1">1&times;</button><button class="sp" data-speed="2">2&times;</button><button class="sp" data-speed="3">3&times;</button><button class="sp" data-speed="5">5&times;</button>
+        </div>
+        <div class="vol"><svg><use href="#i-vol"/></svg><input id="vol" type="range" min="0" max="1" step="0.01" value="1" aria-label="Volume"></div>
+      </div>
+
+      <button id="bmToggle" class="bmhead" aria-expanded="true">
+        <span>Bookmarks <b id="bmCount">0</b></span><svg><use href="#i-down"/></svg>
+      </button>
+      <div id="bmBox" class="bmbox">
+        <p id="bmEmpty" class="empty">No bookmarks yet. Press <b>Bookmark here</b> while listening to save your place.</p>
+        <ul id="bmList"></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="how" class="how">
+  <h2>How it works</h2>
+  <ol class="flow">
+    <li><span class="n">1</span><h3>Upload</h3><p>Choose a PDF or a photo of your notes. Or just paste text.</p></li>
+    <li><span class="n">2</span><h3>Extract</h3><p>PyPDF2 reads PDFs. Tesseract OCR reads text from images.</p></li>
+    <li><span class="n">3</span><h3>Translate</h3><p>Keep English, or switch to Hindi or Marathi.</p></li>
+    <li><span class="n">4</span><h3>Listen</h3><p>Play, pause, change speed from 1&times; to 5&times;, set the volume.</p></li>
+    <li><span class="n">5</span><h3>Bookmark</h3><p>Save any spot and jump back to it later.</p></li>
+  </ol>
+</section>
+
+<section id="about" class="about">
+  <h2>About this project</h2>
+  <div class="about-grid">
+    <p class="big">A Python mini project that turns documents into audiobooks, so reading becomes listening.</p>
+    <dl>
+      <div><dt>Built with</dt><dd>Python, Flask, PyPDF2, Tesseract OCR, gTTS, deep-translator, JavaScript</dd></div>
+      <div><dt>Languages</dt><dd>English, Hindi, Marathi</dd></div>
+      <div><dt>Your files</dt><dd>Processed in memory on your own computer and never saved. Only the text is sent to Google for translation and voice, so you need internet.</dd></div>
+    </dl>
+  </div>
+</section>
+</main>
+
+<footer>AudioBook &middot; Audio Book Using Python</footer>
+<audio id="audio" preload="auto"></audio>
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

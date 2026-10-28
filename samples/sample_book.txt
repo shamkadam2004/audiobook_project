@@ -1,0 +1,11 @@
+Chapter 1: The Beginning
+
+An audiobook is a recording of a text or book being read aloud. With the growth of digital learning and mobile technology, audiobooks have become an essential tool for students, professionals, and readers on the go.
+
+Chapter 2: Why Python?
+
+Python offers simple libraries such as pyttsx3, gTTS and pydub that make it easy to turn text into speech. This project automates the entire process, from reading a PDF to exporting a finished MP3 file with chapter markers.
+
+Chapter 3: The Future
+
+Future versions may use neural text to speech models, voice cloning and multi-speaker narration.
